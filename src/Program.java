@@ -12,9 +12,14 @@ import com.google.gson.reflect.TypeToken;
 public class Program {
 
 	public static void main(final String[] args) throws Exception {
-		String grantType = "password";
+		// Provide your crentials in the variables below
+		String apikey = "XXXXX";
+		String apisecret = "XXXXX";
 		String username = "XXXXX";
+		String extension = "XXX";
 		String password = "XXXXX";
+
+		String grantType = "password";
 		String url = "https://platform.devtest.ringcentral.com/restapi/oauth/token";
 		HttpsURLConnection httpConn = null;
 		BufferedReader in = null;
@@ -25,7 +30,9 @@ public class Program {
 			data.append("grant_type=" + URLEncoder.encode(grantType, "UTF-8"));
 
 			data.append("&username=" + URLEncoder.encode(username, "UTF-8"));
+			//data.append("&extension=" + URLEncoder.encode(extension, "UTF-8"));
 			data.append("&password=" + URLEncoder.encode(password, "UTF-8"));
+		        
 
 			byte[] byteArray = data.toString().getBytes("UTF-8");
 
