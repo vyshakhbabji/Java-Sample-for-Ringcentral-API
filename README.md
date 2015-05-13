@@ -1,15 +1,17 @@
-# RingCentral API calls using Java
+# Java Sample for Ringcentral API
 
-Java Sample implementation for RingCentral API
-# Java-Sample-for-Ringcentral-API
+RingCentral API calls using Java
 
-Replace ` < ********* >` with the AccessTokens, UserID and Password. 
+# Usage
 
-APIkey and APIsecret should be converted into BASE64 encoded form and replaced in  this piece of code
+In the `Program.java` file, replace ` < ********* >` with your `AccessToken`, `UserID` and `Password`. 
 
-Program.java
+`APIkey` and `APIsecret` should be converted into BASE64 encoded form and replaced in  this piece of code
+
+```java
 //---------------------------------
 httpConn.setRequestProperty(
   "Authorization",
   "Basic <base64 converted apikey and secret>");
 //---------------------------------
+```
