@@ -1,17 +1,24 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
+
+import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class AccountInformation {
 
-	public static void main(final String[] args) throws Exception {
+public class CallLog {
+	public  void callLog(String accessToken) throws Exception {
 
-		String url = "https://platform.devtest.ringcentral.com/restapi/v1.0/account/~/";
+		String url = "https://platform.devtest.ringcentral.com/restapi/v1.0/account/~/call-log";
 		HttpsURLConnection httpConn = null;
 		BufferedReader in = null;
 
+		String output =  "";
 		try {
 
 			StringBuilder data = new StringBuilder();
@@ -22,7 +29,7 @@ public class AccountInformation {
 			httpConn.setRequestMethod("GET");
 			httpConn.setRequestProperty(
 					"Authorization",
-					"Bearer <access_token>");
+					"Bearer "+accessToken);
 			httpConn.setDoOutput(true);
 
 			InputStreamReader reader = new InputStreamReader(
@@ -37,18 +44,33 @@ public class AccountInformation {
 			in.close();
 
 			String json = content.toString();
-			System.out.println("Json String = " + json);
+			Date date = new Date();
+			output = "--------------"+date+"-------------------\n";
+			output = output+ json;
+			//System.out.println("Call-log : "+ json);
 
 		} catch (java.io.IOException e) {
-
-			System.out.println(e.getMessage());
+			output = output+ e.getMessage();
+			//System.out.println(e.getMessage());
 
 		} finally {
-
 			if (in != null)
 				in.close();
 			if (httpConn != null)
 				httpConn.disconnect();
 		}
+
+		output=output+"\n --------------------------------------------\n\n\n";
+
+		//writing to file
+		try {
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("/Users/vyshakh.babji/Logger_folder/log.txt", true)));
+			out.println(output);
+			out.close();
+		} catch (IOException e) {
+			//exception handling left as an exercise for the reader
+		}
+
+
 	}
 }
